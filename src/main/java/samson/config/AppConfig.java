@@ -26,10 +26,10 @@ public class AppConfig implements WebMvcConfigurer {
             return resolver;
         }
 
-//        @Bean(initMethod = "initData")
-//        public TestData initTestData(){
-//            return new TestData();
-//        }
+        @Bean(initMethod = "initData")
+        public TestData initTestData(){
+            return new TestData();
+        }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

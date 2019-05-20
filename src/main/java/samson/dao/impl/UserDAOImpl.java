@@ -77,7 +77,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void createUser(User user) throws UserException {
         try {
-            em.persist(user);
+            em.merge(user);
         } catch (Exception e) {
             throw new UserException(e.getCause().getCause().getMessage());
         }

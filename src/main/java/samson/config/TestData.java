@@ -52,6 +52,9 @@ public class TestData {
                         role1));}
             catch (UserException ex){
                 ex.printStackTrace();
+            } catch (Exception exeption){
+                System.out.println(exeption.getMessage());
+                exeption.printStackTrace();
             }
         }
 

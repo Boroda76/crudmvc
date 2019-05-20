@@ -19,20 +19,20 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-            <!--<plugin>-->
-                <!--<artifactId>maven-war-plugin</artifactId>-->
-                <!--<version>2.3</version>-->
-                <!--<configuration>-->
-                    <!--<warSourceDirectory>web</warSourceDirectory>-->
-                    <!--<failOnMissingWebXml>false</failOnMissingWebXml>-->
-                    <!--<webResources>-->
-                        <!--<resource>-->
-                            <!--<filtering>true</filtering>-->
-                            <!--<directory>./web</directory>-->
-                        <!--</resource>-->
-                    <!--</webResources>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.3</version>
+                <configuration>
+                    <warSourceDirectory>web</warSourceDirectory>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webResources>
+                        <resource>
+                            <filtering>true</filtering>
+                            <directory>./web</directory>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
@@ -61,6 +61,7 @@
     </properties>
     <dependencies>
         <!-- Spring MVC Dependency -->
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -141,6 +142,11 @@
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
             <version>0.16</version>
+        </dependency>
+        <dependency>
+            <groupId>javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.12.1.GA</version>
         </dependency>
     </dependencies>
 </project>
