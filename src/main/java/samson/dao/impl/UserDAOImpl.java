@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import samson.dao.UserDAO;
 import samson.exceptions.UserException;
 import samson.model.User;
+import samson.service.impl.RoleServiceImpl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
+
     @PersistenceContext
     EntityManager em;
     @Autowired

@@ -16,6 +16,8 @@ import java.util.List;
 
 @Repository
 public class RoleDAOImpl implements RoleDAO {
+    @PersistenceContext
+    private EntityManager em;
     @Autowired
     SessionFactory factory;
 
@@ -33,12 +35,7 @@ public class RoleDAOImpl implements RoleDAO {
 
     @Override
     public List<Role> findAll() {
-        session = factory.openSession();
-        List<Role> roles;
-        Criteria criteria = session.createCriteria(Role.class);
-        roles = criteria.list();
-        session.close();
-        return roles;
+        return em.createQuery("SELECT r FROM Role r", Role.class).getResultList();
     }
 
     @Override

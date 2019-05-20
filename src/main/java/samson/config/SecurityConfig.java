@@ -23,15 +23,13 @@ import javax.servlet.http.HttpServletResponse;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
     @Autowired
     @Qualifier("userService")
     private UserDetailsService userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return passwordEncoder;
+        return new BCryptPasswordEncoder();
     }
 
     @Autowired
@@ -46,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/admin/**", "/"/*, "/admin/*", "/admin/user/*"*/).hasAuthority("ADMIN")
-                .antMatchers("/user").hasAuthority("USER")
+                .antMatchers("/user").hasAnyAuthority("USER", "ADMIN")
                 .and()
                 .formLogin()
                 .successHandler((HttpServletRequest var1, HttpServletResponse var2, Authentication var3)->redirectStrategy.sendRedirect(var1, var2, "/user")).permitAll()

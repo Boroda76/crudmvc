@@ -44,17 +44,15 @@ public class TestData {
                         0l,
                         "8020d4",
                         "asd@asd.asd",
-                        userService.encodePassword("123"),
+                        "123",
                         true,
                         (int) (Math.random() * 85 + 10),
                         Math.random() * 85 + 45,
                         Math.random() * 85 + 120,
-                        role1));}
+                        role1));
+            }
             catch (UserException ex){
                 ex.printStackTrace();
-            } catch (Exception exeption){
-                System.out.println(exeption.getMessage());
-                exeption.printStackTrace();
             }
         }
 
