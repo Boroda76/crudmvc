@@ -23,10 +23,10 @@
         <div class="col-lg-2 bg-light pr-0">
             <ul class="nav nav-pills flex-column mt-3">
                 <li class="nav-item">
-                    <a class="nav-link active" data-toggle="tab" href="#admin">Admin</a>
+                    <a class="nav-link active" data-toggle="pill" href="#admin">Admin</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#user">User</a>
+                    <a class="nav-link" data-toggle="pill" href="#user">User</a>
                 </li>
             </ul>
         </div>
@@ -82,13 +82,96 @@
                                                                       value="${user.height}"/></td>
                                                 <td><c:out value="${user.rolesString}"/></td>
                                                 <td>
-                                                    <a href="/admin/user/<c:out value='${user.id}'/>">Open</a>
-                                                    /
-                                                    <a href="/admin/update?id=<c:out value='${user.id}'/>">Edit</a>
-                                                    /
-                                                    <a href="/admin/delete?id=<c:out value='${user.id}'/>">Delete</a>
+                                                    <button type="button" class="btn btn-success" data-toggle="modal" <c:out value="data-target=#user${user.id}"/>>Edit</button>
                                                 </td>
                                             </tr>
+
+
+
+
+                                            <div class="modal" <c:out value="id=user${user.id}"/>>
+                                                <form action="/admin/update" method="post">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Edit user <c:out value="${user.login} ${user.rolesString}"/> </h4>
+                                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        </div>
+                                                        <div class="modal-body">
+
+                                                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                                                <input type="hidden" name="id" value="${user.id}"/>
+                                                                <div class="form-group">
+                                                                    <label for="loginE">Login:</label>
+                                                                    <input class="form-control" type="text" id="loginE" name="login" placeholder="login" required value="${user.login}"/>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="passwordE">Password</label>
+                                                                    <input class="form-control" type="password" id="passwordE" name="password" placeholder="password"
+                                                                           required value="${user.password}"/>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="emailE">Email:</label>
+
+                                                                    <input class="form-control" type="text" id="emailE" name="email" placeholder="email"
+                                                                           required value="${user.email}"/>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="roleE">Role:</label>
+
+                                                                    <select class="form-control" name="role" id="roleE" required>
+                                                                        <c:choose>
+                                                                            <c:when test="${user.rolesString.contains('ADMIN')}">
+                                                                                <option  value="USER">user</option>
+                                                                                <option selected value="ADMIN">admin</option>
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <option  selected value="USER">user</option>
+                                                                                <option  value="ADMIN">admin</option>
+                                                                            </c:otherwise>
+                                                                        </c:choose>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="ageE">Age:</label>
+
+                                                                    <input class="form-control" type="number" id="ageE" name="age" placeholder="age" required value="${user.age}"/>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Sex:</label>
+                                                                    <input type="radio" name="sex" value="true" required <c:if test="${user.sex}">checked</c:if>/> Male
+                                                                    <input type="radio" name="sex" value="false" required <c:if test="${user.sex!=true}">checked</c:if>/> Female
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="weightE">Weight:</label>
+
+                                                                    <input class="form-control" type="number" id="weightE" name="weight" placeholder="weight"
+                                                                           step="0.01" required value="<c:out value='${String.format(\"%.2f\",user.weight).replace(\',\',\'.\')}'/>"/>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="heightE">Height:</label>
+
+                                                                    <input class="form-control" type="number" id="heightE" name="height" placeholder="height"
+                                                                           step="0.01" required value="<c:out value='${String.format(\"%.2f\",user.height).replace(\',\',\'.\')}'/>"/>
+                                                                </div>
+
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                                                            <button type="submit" class="btn btn-primary">Update user</button>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                </form>
+                                            </div>
+
+
+
+
+
+
+
                                         </c:forEach>
                                         </tbody>
                                     </table>
@@ -99,7 +182,7 @@
                             <div class="card">
                                 <div class="card-header">Add new user</div>
                                 <div class="card-body mx-auto">
-                                    <form action="/admin/create" method="post">
+                                    <form action="/admin/update" method="post">
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                         <div class="form-group">
                                             <label for="login">Login:</label>
@@ -153,7 +236,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane container fade" id="user">Hello USERNAME</div>
+                </div>
+                    <div class="tab-pane container fade" id="user">
+                        <h1>Admin panel</h1>
+                        <p>Hello <c:out value="${pageContext.request.userPrincipal.name} !"/></p>
+                    </div>
                 </div>
             </div>
         </div>
