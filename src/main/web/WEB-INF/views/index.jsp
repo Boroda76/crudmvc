@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <head>
@@ -20,18 +21,21 @@
 </nav>
 <div class="container-fluid">
     <div class="row h-100">
-        <div class="col-lg-2 bg-light pr-0">
+        <div class="col-lg-2 bg-light px-0">
             <ul class="nav nav-pills flex-column mt-3">
+<sec:authorize access="hasAuthority('ADMIN')">
                 <li class="nav-item">
                     <a class="nav-link active" data-toggle="pill" href="#admin">Admin</a>
                 </li>
+</sec:authorize>
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="pill" href="#user">User</a>
+                    <a class="nav-link"  data-toggle="pill" href="#user">User</a>
                 </li>
             </ul>
         </div>
         <div class="col-lg-10" style="background-color:rgba(0, 0, 0, 0.05);">
             <div class="tab-content mt-3">
+<sec:authorize access="hasAuthority('ADMIN')">
                 <div class="tab-pane container active" id="admin">
                     <h1>Admin panel</h1>
                     <ul class="nav nav-tabs">
@@ -83,6 +87,7 @@
                                                 <td><c:out value="${user.rolesString}"/></td>
                                                 <td>
                                                     <button type="button" class="btn btn-success" data-toggle="modal" <c:out value="data-target=#user${user.id}"/>>Edit</button>
+                                                    <a type="button" class="btn btn-danger" <c:out value="href=/admin/delete?id=${user.id}"/>>Delete</a>
                                                 </td>
                                             </tr>
 
@@ -237,8 +242,9 @@
                         </div>
                     </div>
                 </div>
+</sec:authorize>
                     <div class="tab-pane container fade" id="user">
-                        <h1>Admin panel</h1>
+                        <h1>User page</h1>
                         <p>Hello <c:out value="${pageContext.request.userPrincipal.name} !"/></p>
                     </div>
                 </div>

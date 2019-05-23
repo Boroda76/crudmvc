@@ -43,11 +43,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/admin/**", "/"/*, "/admin/*", "/admin/user/*"*/).hasAuthority("ADMIN")
-                .antMatchers("/user").hasAnyAuthority("USER", "ADMIN")
+                .anyRequest().authenticated()
+                .antMatchers("/resources/**").permitAll()
+//                .antMatchers("/admin/**", "/"/*, "/admin/*", "/admin/user/*"*/).hasAuthority("ADMIN")
+//                .antMatchers("/user").hasAnyAuthority("USER", "ADMIN")
                 .and()
                 .formLogin()
-                .successHandler((HttpServletRequest var1, HttpServletResponse var2, Authentication var3)->redirectStrategy.sendRedirect(var1, var2, "/user")).permitAll()
+                .successHandler((HttpServletRequest var1, HttpServletResponse var2, Authentication var3)->redirectStrategy.sendRedirect(var1, var2, "/index")).permitAll()
                 .usernameParameter("login")
                 .and()
                 .logout().logoutSuccessUrl("/logout").logoutSuccessUrl("/login").permitAll()

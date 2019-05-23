@@ -33,16 +33,6 @@
                     </webResources>
                 </configuration>
             </plugin>
-            <!--<plugin>-->
-                <!--<groupId>org.apache.tomcat.maven</groupId>-->
-                <!--<artifactId>tomcat7-maven-plugin</artifactId>-->
-                <!--<version>2.2</version>-->
-                <!--<configuration>-->
-                    <!--<port>9090</port>-->
-                    <!--<path>/</path>-->
-                    <!--<warDirectory>/</warDirectory>-->
-                <!--</configuration>-->
-            <!--</plugin>-->
         </plugins>
     </build>
     <properties>
@@ -57,6 +47,10 @@
         <jsp.version>2.3.1</jsp.version>
         <hsqldb.version>1.8.0.10</hsqldb.version>
         <mysql.version>5.1.35</mysql.version>
+        <thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
+        <xml.version>2.3.0</xml.version>
+        <faker.version>0.16</faker.version>
+        <javassist.version>3.12.1.GA</javassist.version>
 
     </properties>
     <dependencies>
@@ -103,17 +97,6 @@
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate.validator}</version>
         </dependency>
-        <!-- JSTL Dependency -->
-        <dependency>
-            <groupId>javax.servlet.jsp.jstl</groupId>
-            <artifactId>javax.servlet.jsp.jstl-api</artifactId>
-            <version>${jstl.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>taglibs</groupId>
-            <artifactId>standard</artifactId>
-            <version>${tld.version}</version>
-        </dependency>
         <!-- Servlet Dependency -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -121,32 +104,35 @@
             <version>${servlets.version}</version>
             <scope>provided</scope>
         </dependency>
-        <!-- JSP Dependency -->
+        <!-- Thymeleaf Dependency -->
         <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>javax.servlet.jsp-api</artifactId>
-            <version>${jsp.version}</version>
-            <scope>provided</scope>
+            <groupId>org.thymeleaf</groupId>
+            <artifactId>thymeleaf-spring3</artifactId>
+            <version>${thymeleaf.version}</version>
         </dependency>
+        <!-- MySQL -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.version}</version>
         </dependency>
+        <!--XML bind-->
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>2.3.0</version>
+            <version>${xml.version}</version>
         </dependency>
+        <!--Lovely FAKER -->
         <dependency>
             <groupId>com.github.javafaker</groupId>
             <artifactId>javafaker</artifactId>
-            <version>0.16</version>
+            <version>${faker.version}</version>
         </dependency>
+        <!-- WTF? DO NOT TOUCH THIS! -->
         <dependency>
             <groupId>javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.12.1.GA</version>
+            <version>${javassist.version}</version>
         </dependency>
     </dependencies>
 </project>

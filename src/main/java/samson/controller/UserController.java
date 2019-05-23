@@ -21,7 +21,7 @@ public class UserController{
     @Autowired
     private RoleService roleService;
 
-    @GetMapping({"/admin/users", "/admin/users/", "/admin/", "/", "/admin"})
+    @GetMapping({"/index", "/"})
     public String allUsers(Model model) {
             model.addAttribute("users", userService.getAll());
         return "index";
@@ -38,20 +38,6 @@ public class UserController{
             model.addAttribute("error", e);
             return "error";
         }
-    }
-
-    @GetMapping("/admin/update")
-    public ModelAndView updateOrCreate(@RequestParam(required = false, name = "id") Long id) {
-        ModelAndView modelAndView = new ModelAndView("create");
-        if (id != null) {
-            try {
-                User user = userService.getById(id);
-                modelAndView.addObject("userEdit", user);
-            } catch (UserException e) {
-                modelAndView.addObject("message", e.getMessage());
-            }
-        }
-        return modelAndView;
     }
 
     @PostMapping("/admin/update")
@@ -83,7 +69,7 @@ public class UserController{
                 return model;
             }
         }
-        return new ModelAndView("redirect:/admin");
+        return new ModelAndView("redirect:/index");
     }
 
     @GetMapping("/admin/delete")
@@ -95,29 +81,12 @@ public class UserController{
         }
         try {
             userService.delete(id);
-            return new ModelAndView("redirect:users");
+            return new ModelAndView("redirect:/index");
         } catch (UserException e) {
             model.addObject("message", e.getMessage());
             model.addObject("error", e);
             model.setViewName("error");
             return model;
         }
-    }
-
-    @GetMapping({"/user/", "/user"})
-    public String user(HttpServletRequest request, Model model) {
-        Principal principal =request.getUserPrincipal();
-        User user=null;
-        try {
-            user = userService.getByLogin(principal.getName());
-            model.addAttribute("user", user);
-        } catch (UserException e) {
-            model.addAttribute("message", e.getMessage());
-        }
-        return "user";
-    }
-    @GetMapping({"/error", "/error/"})
-    public String error(){
-        return "error";
     }
 }

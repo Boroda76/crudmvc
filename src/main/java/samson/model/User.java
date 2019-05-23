@@ -43,8 +43,8 @@ public class User implements UserDetails {
         this.authorities=authorities;
     }
 
-    public User(Long id, String login, String email, String password, Boolean sex, Integer age, Double weight, Double height, Set<Role> authorities) {
-        this.id = id;
+    public User(String login, String email, String password, Boolean sex, Integer age, Double weight, Double height, Set<Role> authorities) {
+//        this.id = id;
         this.login = login;
         this.email = email;
         this.password = password;
