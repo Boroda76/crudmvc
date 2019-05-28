@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -31,19 +32,29 @@ public class User implements UserDetails {
     private Double height;
 
     @ManyToMany(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
-    private Set<Role> authorities;
+    private List<Role> authorities;
 
     //For hibernate with love!
     public User() {
     }
 
-    public void setAuthorities(Role role) {
-        Set<Role> authorities=new HashSet<>();
-        authorities.add(role);
+    public void setAuthorities(List<Role> authorities) {
         this.authorities=authorities;
     }
 
-    public User(String login, String email, String password, Boolean sex, Integer age, Double weight, Double height, Set<Role> authorities) {
+    public boolean removeAuthority(Role role) {
+        return authorities.remove(role);
+    }
+
+    public boolean addRole(Role role){
+        if(authorities.indexOf(role)!=-1){
+            authorities.add(role);
+            return true;
+        }
+        return false;
+    }
+
+    public User(String login, String email, String password, Boolean sex, Integer age, Double weight, Double height, List<Role> authorities) {
 //        this.id = id;
         this.login = login;
         this.email = email;
@@ -55,14 +66,15 @@ public class User implements UserDetails {
         this.authorities = authorities;
     }
 
-    public String getRolesString(){
-        StringBuilder result=new StringBuilder();
-        for(Role r:authorities){
-            result.append(r.getAuthority()+", ");
-        }
-        result.delete(result.length()-2, result.length()-1);
-        return result.toString();
-    }
+    //TODO: how to convert method result to JSON
+//    public String getRolesString(){
+//        StringBuilder result=new StringBuilder();
+//        for(Role r:authorities){
+//            result.append(r.getAuthority()+", ");
+//        }
+//        result.delete(result.length()-2, result.length()-1);
+//        return result.toString();
+//    }
 
     @Override
     public String getUsername() {

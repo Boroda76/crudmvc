@@ -51,6 +51,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void updateUser(User user) throws UserException {
+        String newPass=user.getPassword().isEmpty()?getById(user.getId()).getPassword():passwordEncoder.encode(user.getPassword());
+        user.setPassword(newPass);
         dao.updateUser(user);
     }
 

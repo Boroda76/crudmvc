@@ -9,105 +9,93 @@
     <version>1</version>
     <packaging>war</packaging>
 
+
     <build>
         <plugins>
             <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <warSourceDirectory>web</warSourceDirectory>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <webResources>
-                        <resource>
-                            <filtering>true</filtering>
-                            <directory>./web</directory>
-                        </resource>
-                    </webResources>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
     <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
         <failOnMissingWebXml>false</failOnMissingWebXml>
-        <spring.version>5.1.0.RELEASE</spring.version>
-        <hibernate.version>5.3.5.Final</hibernate.version>
-        <hibernate.validator>5.4.1.Final</hibernate.validator>
-        <c3p0.version>0.9.5.2</c3p0.version>
-        <jstl.version>1.2.1</jstl.version>
-        <tld.version>1.1.2</tld.version>
-        <servlets.version>3.1.0</servlets.version>
-        <jsp.version>2.3.1</jsp.version>
+        <spring.version>5.1.5.RELEASE</spring.version>
+        <spring.security.version>5.1.5.RELEASE</spring.security.version>
+        <hibernate.version>5.4.2.Final</hibernate.version>
+        <hibernate.validator>5.4.2.Final</hibernate.validator>
         <hsqldb.version>1.8.0.10</hsqldb.version>
         <mysql.version>5.1.35</mysql.version>
-        <thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
-        <xml.version>2.3.0</xml.version>
+        <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
+        <xml.version>2.3.1</xml.version>
         <faker.version>0.16</faker.version>
-        <javassist.version>3.12.1.GA</javassist.version>
-
+        <jackson.version>2.9.8</jackson.version>
+        <thymeleaf.extras.version>3.0.4.RELEASE</thymeleaf.extras.version>
     </properties>
-    <dependencies>
-        <!-- Spring MVC Dependency -->
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.5.RELEASE</version>
+    </parent>
+    
+    <dependencies>
+        <!-- Spring Boot Dependencies -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        <!-- Spring ORM -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-rest</artifactId>
         </dependency>
-        <!-- Security -->
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>${spring.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        <!-- Security config -->
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>${spring.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+
         </dependency>
-        <!-- Security JSP -->
         <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-taglibs</artifactId>
-            <version>${spring.version}</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-        <!-- Hibernate Core -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
+            <!--<scope>provided</scope>-->
+        <!--</dependency>-->
+        <!-- Hibernate Core&Entity -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.2.17.Final</version>
+            <version>5.3.7.Final</version>
         </dependency>
-        <!-- Hibernate Validator -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate.validator}</version>
         </dependency>
-        <!-- Servlet Dependency -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>${servlets.version}</version>
-            <scope>provided</scope>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>5.2.12.Final</version>
         </dependency>
         <!-- Thymeleaf Dependency -->
         <dependency>
             <groupId>org.thymeleaf</groupId>
-            <artifactId>thymeleaf-spring3</artifactId>
+            <artifactId>thymeleaf-spring5</artifactId>
             <version>${thymeleaf.version}</version>
         </dependency>
         <!-- MySQL -->
@@ -128,11 +116,10 @@
             <artifactId>javafaker</artifactId>
             <version>${faker.version}</version>
         </dependency>
-        <!-- WTF? DO NOT TOUCH THIS! -->
         <dependency>
-            <groupId>javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>${javassist.version}</version>
+            <groupId>org.thymeleaf.extras</groupId>
+            <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+            <version>${thymeleaf.extras.version}</version>
         </dependency>
     </dependencies>
 </project>

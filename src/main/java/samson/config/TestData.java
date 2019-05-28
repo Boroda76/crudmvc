@@ -11,7 +11,6 @@ import samson.model.User;
 import samson.service.RoleService;
 import samson.service.UserService;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,10 +30,8 @@ public class TestData {
             roleService.addRole(new Role("USER"));
         }
         List<Role> roles = roleService.findAll();
-        HashSet<Role> role1 = new HashSet<>();
-        role1.add(roles.get(0));
-        HashSet<Role> role2 = new HashSet<>();
-        role2.add(roles.get(1));
+        List<Role> role1 = roles.subList(0, 1);
+        List<Role> role2 = roles.subList(1, 2);
         try {
             userService.getByLogin("8020d4");
         } catch (Exception e) {
@@ -48,7 +45,8 @@ public class TestData {
                         (int) (Math.random() * 85 + 10),
                         Math.random() * 85 + 45,
                         Math.random() * 85 + 120,
-                        role1));
+                        roles));
+
             } catch (UserException ex) {
                 ex.printStackTrace();
             }

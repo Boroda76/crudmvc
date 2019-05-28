@@ -56,7 +56,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void createUser(User user) throws UserException {
         try {
-            em.merge(user); //TODO: why persist doesn't work?
+            em.merge(user);
         } catch (Exception e) {
             throw new UserException(e.getCause().getCause().getMessage());
         }
