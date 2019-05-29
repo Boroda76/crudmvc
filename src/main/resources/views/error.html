@@ -1,23 +1,20 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Error</title>
-    <script>
-        function trace() {
-            let trace=document.getElementById("trace");
-            let display=trace.style.display;
-            display=="none"?trace.style.display="block":trace.style.display="none";
-        }
-    </script>
 </head>
 <body style="background: url(/img/error.gif); color: red;">
-
+<script>
+    function trace() {
+        let trace=document.getElementById("trace");
+        let display=trace.style.display;
+        display=="none"?trace.style.display="block":trace.style.display="none";
+    }
+</script>
 <h1 th:text="${message}"/>
-<div sec:authorize="${hasAuthority('ADMIN')}">
+<div >
         <button onclick="trace()">Show/hide stacktrace</button>
         <div id="trace">
-            <!--<p th:each="call:${error.getStackTrace()}" th:text="${call.toString()}"/>-->
-            <p th:text="${error}"></p>
-
+            <p th:each="call:${error.getStackTrace()}" th:text="${call.toString()}"/>
         </div>
 </div>
 <a href="/index"><button>To main page</button></a>

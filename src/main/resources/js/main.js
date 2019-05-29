@@ -10,9 +10,7 @@ var roles=[];
 function validateEditForm(){
 //TODO validation forms
 }
-function transferAJAX(data){
-    return data;
-}
+
 
 // DOCUMENT READY
 $(document).ready(function () {
@@ -80,33 +78,10 @@ function submitCreateForm() {
             request.setRequestHeader("X-CSRF-TOKEN", getCookie('XSRF-TOKEN'));
             console.log(d);
         },
-        success: function (data) {
-            if(data===true){
+        success: function () {
                 $('[href="#list"]').click();
-                getUserByName(user['login']);
-                let newUserRoles='';
-                $(userFromBD['authorities']).each(function(){
-                    newUserRoles+=this['authority']+' ';
-                });
-                $('#mainTable').find('tbody').prepend(
-                    '<tr id="userRow'+userFromBD['id']+'">' +
-                    '<td>'+userFromBD['login']+'</td>' +
-                    '<td>'+userFromBD['email']+'</td>' +
-                    '<td>'+(userFromBD['sex']?'Male':'Female')+'</td>' +
-                    '<td>'+userFromBD['age']+'</td>' +
-                    '<td>'+parseFloat(userFromBD['weight']).toFixed(2)+'</td>' +
-                    '<td>'+parseFloat(userFromBD['height']).toFixed(2)+'</td>' +
-                    '<td>'+newUserRoles+'</td>' +
-                    '<td>'+
-                    '<button type="button" class="btn btn-success mr-1"  data-toggle="modal" data-target="#userEditModal" onClick="fillEditModal('+userFromBD['id']+')">Edit</button>'+
-                    '<button type="button" class="btn btn-danger" onClick="deleteUser('+userFromBD['id']+')">Delete</button>'+
-                    '</td>' +
-                    '</tr>'
-                );
-            }
-            else{
-                $('html').html(data);
-            }
+            $('#mainTable').find('tbody').empty();
+                fillMainTable();
         }
     });
 }
@@ -145,32 +120,18 @@ function submitEditForm() {
             request.setRequestHeader("X-CSRF-TOKEN", getCookie('XSRF-TOKEN'));
             console.log(d);
         },
-        success: function (data) {
-            if(data){
-                let newRoles='';
-                $(user['authorities']).each(function(){
-                    newRoles+=this['authority']+' ';
-                });
+        success: function () {
                 $('[data-dismiss="modal"]').click();
-                $('#userRow'+user['id']).html(
-                    '<td>'+user['login']+'</td>' +
-                    '<td>'+user['email']+'</td>' +
-                    '<td>'+(user['sex']?'Male':'Female')+'</td>' +
-                    '<td>'+user['age']+'</td>' +
-                    '<td>'+parseFloat(user['weight'])+'</td>' +
-                    '<td>'+parseFloat(user['height'])+'</td>' +
-                    '<td>'+newRoles+'</td>' +
-                    '<td>' +
-                    '<button type="button" class="btn btn-success mr-1"  data-toggle="modal" data-target="#userEditModal" onClick="fillEditModal('+user['id']+')">Edit</button>'+
-                    '<button type="button" class="btn btn-danger" onClick="deleteUser('+user['id']+')">Delete</button>'+
-                    '</td>');
-            };
+            $('#mainTable').find('tbody').empty();
+                fillMainTable();
+        },
+        error: function(data){
 
         }
     });
 }
 
-function getUserByName(name, callback) {
+function getUserByName(name) {
     $.ajax({
         url:'/api/users/byLogin/'+name,
         method: 'GET',

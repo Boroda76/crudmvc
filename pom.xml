@@ -34,6 +34,7 @@
         <xml.version>2.3.1</xml.version>
         <faker.version>0.16</faker.version>
         <jackson.version>2.9.8</jackson.version>
+        <minidev.version>2.3</minidev.version>
         <thymeleaf.extras.version>3.0.4.RELEASE</thymeleaf.extras.version>
     </properties>
 
@@ -60,17 +61,22 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-tomcat</artifactId>-->
-            <!--<scope>provided</scope>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
         <!-- Hibernate Core&Entity -->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -120,6 +126,11 @@
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
             <version>${thymeleaf.extras.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.minidev</groupId>
+            <artifactId>json-smart</artifactId>
+            <version>${minidev.version}</version>
         </dependency>
     </dependencies>
 </project>

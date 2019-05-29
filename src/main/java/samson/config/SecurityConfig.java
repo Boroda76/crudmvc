@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .successHandler((HttpServletRequest var1, HttpServletResponse var2, Authentication var3) -> redirectStrategy.sendRedirect(var1, var2, "/index"))
-
+//                .and().addFilter()
                 .and()
                 .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
                 .logout().logoutSuccessUrl("/logout").logoutSuccessUrl("/login")

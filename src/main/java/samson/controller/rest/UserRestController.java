@@ -60,8 +60,6 @@ public class UserRestController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public boolean update(@RequestBody User u) throws UserException {
-        User toSave=new User();
-//        u.setAuthorities(u.getAuthorities().stream().map(x->roleService.findByName(x.getAuthority())).collect(Collectors.toList()));
         userService.updateUser(u);
         return true;
     }
