@@ -5,9 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 
 @Entity
@@ -66,15 +64,14 @@ public class User implements UserDetails {
         this.authorities = authorities;
     }
 
-    //TODO: how to convert method result to JSON
-//    public String getRolesString(){
-//        StringBuilder result=new StringBuilder();
-//        for(Role r:authorities){
-//            result.append(r.getAuthority()+", ");
-//        }
-//        result.delete(result.length()-2, result.length()-1);
-//        return result.toString();
-//    }
+    public String getRolesString(){
+        StringBuilder result=new StringBuilder();
+        for(Role r:authorities){
+            result.append(r.getAuthority()+", ");
+        }
+        result.delete(result.length()-2, result.length()-1);
+        return result.toString();
+    }
 
     @Override
     public String getUsername() {

@@ -52,8 +52,8 @@ public class UserRestController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public boolean create(@RequestBody User u) throws UserException { //TODO supress exception then send JSON with error
-        System.out.println("here");
+    public boolean create(@RequestBody User u) throws UserException {
+        System.out.println("here"); //TODO validation for empty field
         userService.createUser(u);
         return true;
     }

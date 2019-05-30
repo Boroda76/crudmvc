@@ -1,15 +1,12 @@
 package samson.controller;
 
-import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.stereotype.Controller;
+import net.minidev.json.JSONObject;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import samson.exceptions.UserException;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.security.Principal;
 
 /**
  * This is note for me in future xD
@@ -17,15 +14,19 @@ import java.security.Principal;
  * @link https://stackoverflow.com/questions/55101797/using-spring-boots-errorcontroller-and-springs-responseentityexceptionhandler
  * @link https://www.logicbig.com/tutorials/spring-framework/spring-boot/implementing-error-controller.html
  */
-@Controller
-public class ExceptionController implements ErrorController {
-    @RequestMapping("/error")
+
+@ControllerAdvice("samson")
+public class ExceptionController /*implements ErrorController*/ {
+//    @RequestMapping("/error")
+
     @ExceptionHandler(Throwable.class)
-    public Object handle(Exception e, HttpServletRequest request, HttpServletResponse response, Principal principal) {
+    public Object handle(Exception e, HttpServletRequest request) {
         if(e instanceof UserException){
-            return null;
+            JSONObject errorMessage=new JSONObject();
+            errorMessage.appendField("message", e.getCause().getCause().getMessage());
+            errorMessage.appendField("stackTrace", e.getStackTrace());
+            return errorMessage;
         } else {
-            request.getSession();
             ModelAndView modelAndView = new ModelAndView("error");
             modelAndView.addObject("message", e.getMessage());
             modelAndView.addObject("error", e);
@@ -33,9 +34,9 @@ public class ExceptionController implements ErrorController {
         }
     }
 
-    @Override
-    public String getErrorPath() {
-        return "/error";
-    }
+//    @Override
+//    public String getErrorPath() {
+//        return "/error";
+//    }
 
 }

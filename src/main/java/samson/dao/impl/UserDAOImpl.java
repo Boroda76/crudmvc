@@ -13,7 +13,7 @@ import java.util.List;
 public class UserDAOImpl implements UserDAO {
 
     @PersistenceContext
-    EntityManager em;
+    private EntityManager em;
 
     @Override
     public void delete(Long id) throws UserException {
@@ -47,18 +47,18 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void updateUser(User user) throws UserException {
         try {
-            em.merge(user);
+            em.merge(user); //TODO check duplicate/empty here
         } catch (Exception e) {
-            throw new UserException(e.getCause().getCause().getMessage());
+            throw new UserException(e);
         }
     }
 
     @Override
     public void createUser(User user) throws UserException {
         try {
-            em.merge(user);
+            em.persist(user); //TODO check duplicate/empty here then throw exception
         } catch (Exception e) {
-            throw new UserException(e.getCause().getCause().getMessage());
+           throw new UserException(e);
         }
 
     }

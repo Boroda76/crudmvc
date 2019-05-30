@@ -54,14 +54,14 @@ function submitCreateForm() {
     let userRoles=[];
     $('#createForm').find('option').each(function(i) {
         if (this.selected){
-            userRoles.push($(this).val());
+            userRoles.push(roles[$(this).val()]);
         }
     });
     let user={
         'id': $('#idC').val(),
-        'login': $('#loginC').val(),
+        'login': $('#loginC').val().length==0?null:$('#loginC').val(),
         'password': $('#passwordC').val(),
-        'email': $('#emailC').val(),
+        'email': $('#emailC').val().length==0?null:$('#emailC').val(),
         'sex': sex,
         'age': $('#ageC').val(),
         'weight': $('#weightC').val(),

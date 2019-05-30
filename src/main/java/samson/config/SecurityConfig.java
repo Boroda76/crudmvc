@@ -45,22 +45,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-//                .csrf().disable()//TODO fow to make REST work with csrf?!
                 .authorizeRequests()
+                .antMatchers("/api/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
-                .antMatchers("/api/**").hasAuthority("ADMIN") //TODO fix antMathcers
                 .and()
                 .formLogin()
                 .successHandler((HttpServletRequest var1, HttpServletResponse var2, Authentication var3) -> redirectStrategy.sendRedirect(var1, var2, "/index"))
-//                .and().addFilter()
-                .and()
-                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
-                .logout().logoutSuccessUrl("/logout").logoutSuccessUrl("/login")
                 .and()
                 .exceptionHandling().accessDeniedHandler((HttpServletRequest var1, HttpServletResponse var2, AccessDeniedException var3) -> {
             var1.setAttribute("message", var3.getMessage());
             var1.getRequestDispatcher("/error").forward(var1, var2);
         })
+                .and()
+                .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)
+                .logout().logoutSuccessUrl("/logout").logoutSuccessUrl("/login")
+                .and()
+
         ;
     }
 

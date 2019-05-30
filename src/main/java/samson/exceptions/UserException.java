@@ -4,7 +4,10 @@ public class UserException extends Exception {
     public UserException() {
     }
 
-    public UserException(String message) {
+    public UserException(Throwable e) {
+        super(e);
+    }
+    public UserException(String message){
         super(message);
     }
 }

@@ -11,7 +11,7 @@
     }
 </script>
 <h1 th:text="${message}"/>
-<div >
+<div sec:authorize="hasAuthority('ADMIN')">
         <button onclick="trace()">Show/hide stacktrace</button>
         <div id="trace">
             <p th:each="call:${error.getStackTrace()}" th:text="${call.toString()}"/>
