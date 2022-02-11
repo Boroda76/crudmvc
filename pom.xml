@@ -34,7 +34,7 @@
         <xml.version>2.3.1</xml.version>
         <faker.version>0.16</faker.version>
         <jackson.version>2.9.8</jackson.version>
-        <minidev.version>2.3</minidev.version>
+        <minidev.version>2.4.5</minidev.version>
         <thymeleaf.extras.version>3.0.4.RELEASE</thymeleaf.extras.version>
     </properties>
 
