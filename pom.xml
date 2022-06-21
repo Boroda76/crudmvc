@@ -29,7 +29,7 @@
         <hibernate.version>5.4.2.Final</hibernate.version>
         <hibernate.validator>5.4.2.Final</hibernate.validator>
         <hsqldb.version>1.8.0.10</hsqldb.version>
-        <mysql.version>5.1.35</mysql.version>
+        <mysql.version>8.0.28</mysql.version>
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
         <xml.version>2.3.1</xml.version>
         <faker.version>0.16</faker.version>
